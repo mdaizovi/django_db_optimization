@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import environ
 import os
+import sys
 
 env = environ.Env(
     # set casting, default value
@@ -136,3 +137,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+TESTING = 'test' in sys.argv

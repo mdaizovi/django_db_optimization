@@ -13,3 +13,23 @@
     <li>{{ x.name }}: ${{ x.price_us }}</li>
 {% endfor %}    
 </ul>
+
+{% if all.has_other_pages %}
+  <div class="pagination">
+    {% if all.has_previous %}
+      <a href="?page={{ all.previous_page_number }}">&laquo; Previous</a>
+    {% endif %}
+    
+    {% for i in all.paginator.page_range %}
+      {% if all.number == i %}
+        <span class="active">{{ i }}</span>
+      {% else %}
+        <a href="?page={{ i }}">{{ i }}</a>
+      {% endif %}
+    {% endfor %}
+    
+    {% if all.has_next %}
+      <a href="?page={{ all.next_page_number }}">Next &raquo;</a>
+    {% endif %}
+  </div>
+{% endif %}
