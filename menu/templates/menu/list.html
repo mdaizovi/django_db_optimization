@@ -1,0 +1,15 @@
+<H1> Delicious hot dogs!</H1>
+
+<h2>Low Price Offerings</h2>
+<ul>
+{% for x in low_price %}
+    <li>{{ x.name }}: ${{ x.price_us }}</li>
+{% endfor %}    
+</ul>
+
+<h2>All Menu Items</h2>
+<ul>
+    {% for x in all %}
+    <li>{{ x.name }}: ${{ x.price_us }}</li>
+{% endfor %}    
+</ul>

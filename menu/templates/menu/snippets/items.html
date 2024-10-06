@@ -1,0 +1,5 @@
+<h3 class = "text-center">{{solo.received}}</h3>
+  {% for a in solo.answers.all%}
+<h4>{{a.question.text}}?</h4>
+<p>{{a.text}}</p>
+{%endfor%}
