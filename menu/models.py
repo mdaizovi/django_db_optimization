@@ -55,7 +55,7 @@ class SetMenu(models.Model):
     condiments = models.ManyToManyField(Condiment, blank=True)
     toppings = models.ManyToManyField(Topping, blank=True)
     bun = models.ForeignKey(Bun, on_delete=models.CASCADE)
-    price_us = models.DecimalField(max_digits=5, decimal_places=2)
+    price_us = models.DecimalField(max_digits=5, decimal_places=2, db_index=True)
 
     objects = SetMenuManager()
 
@@ -68,17 +68,10 @@ class SetMenu(models.Model):
     def _dietary_restriction_passes(
         self, restriction: Literal["vegan", "vegetarian", "glutenfree"]
     ) -> bool:
-        for condiment in self.condiments.all():
-            if getattr(condiment, restriction) is False:
-                return False
-        for topping in self.toppings.all():
-            if getattr(topping, restriction) is False:
-                return False
-        if getattr(self.bun, restriction) is False:
-            return False
-        if getattr(self.hotdog, restriction) is False:
-            return False
-        return True
+        return all(
+            getattr(item, restriction)
+            for item in [self.bun, self.hotdog] + list(self.condiments.all()) + list(self.toppings.all())
+        )
 
     @property
     def vegan(self) -> bool:
