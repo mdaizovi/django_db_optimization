@@ -23,7 +23,5 @@ class SetMenuManager(models.Manager):
 
     def low_price(self):
         return [
-            x
-            for x in [self._map_object(x) for x in self.get_queryset().all()]
-            if x.price_us <= 8
+            self._map_object(x) for x in self.get_queryset().filter(price_us__lte=8)
         ]
