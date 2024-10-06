@@ -23,5 +23,8 @@ class SetMenuManager(models.Manager):
 
     def low_price(self):
         return [
-            self._map_object(x) for x in self.get_queryset().filter(price_us__lte=8)
+            self._map_object(x)
+            for x in self.get_queryset()
+            .filter(price_us__lte=8)
+            .select_related("hotdog", "bun")
         ]
