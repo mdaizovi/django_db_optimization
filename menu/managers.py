@@ -27,4 +27,5 @@ class SetMenuManager(models.Manager):
             for x in self.get_queryset()
             .filter(price_us__lte=8)
             .select_related("hotdog", "bun")
+            .prefetch_related("condiments", "toppings")
         ]
